@@ -1,8 +1,14 @@
 import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Home from "./pages/Home";
 
 const App = () => {
   return <>
-   <h3>pelazio.com</h3>
+   <Router>
+   <Routes>
+     <Route exact path="/" component={Home} />
+   </Routes>
+   </Router>
   </>;
 };
 
