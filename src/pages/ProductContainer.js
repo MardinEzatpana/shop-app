@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux"
+import { addToCart } from "../redux/cart/cartAction";
 import { fetchProducts } from "../redux/products/productAction"
 
 const ProductContainer = () => {
@@ -9,6 +10,10 @@ const ProductContainer = () => {
     useEffect(() => {
         dispatch(fetchProducts())
     }, [dispatch]);
+
+    const handleAddToCart = (product) => {
+        dispatch(addToCart(product))
+    }
 
     return (
         <>
@@ -27,7 +32,7 @@ const ProductContainer = () => {
                                 </p>
                             </div>
                             <div className="card-footer d-flex justify-content-between">
-                                <button  className="btn btn-sm btn-outline-success">
+                                <button onClick={() => handleAddToCart(product)}  className="btn btn-sm btn-outline-success">
                                     Add to cart
                                 </button>
                                 <span>{product.price}</span>
