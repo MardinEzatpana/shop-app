@@ -12,15 +12,15 @@ const Header = () => {
                 <div className="collapse navbar-collapse" >
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                         <li className="nav-item">
-                            <NavLink className="nav-link" activeClassName='active' exact to='/' >Home</NavLink >
+                            <NavLink className={(navData) => navData.isActive ? 'nav-link active' : 'nav-link'} to='/' >Home</NavLink >
                         </li>
                         <li className="nav-item">
-                            <NavLink className="nav-link" activeClassName='active' to='/products'>Products</NavLink>
+                            <NavLink className={(navData) => navData.isActive ? 'nav-link active' : 'nav-link'} to='/products'>Products</NavLink>
                         </li>
                     </ul>
                     <ul className="navbar-nav ms-auto">
                         <li className="nav-item">
-                            <NavLink className="nav-link p-1 me-3" activeClassName='active' to="/cart">
+                            <NavLink className={(navData) => navData.isActive ? 'nav-link p-1 me-3 active' : 'nav-link p-1 me-3'} to="/cart">
                                 <span className="badge rounded-pill bg-primary me-1">0</span>
                                 <i className="bi bi-basket-fill fs-4"></i>
                             </NavLink>
