@@ -18,3 +18,16 @@ export const decrement = (productId) => {
         payload: productId
     }
 }
+
+export const removeFromCart = (productId) => {
+    return {
+        type: 'REMOVE_FROM_CART',
+        payload: productId
+    }
+}
+
+export const clearCart = () => {
+    return {
+        type: 'CLEAR_CART'
+    }
+}

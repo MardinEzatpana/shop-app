@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
-import { decrement, increment } from "../redux/cart/cartAction";
+import { clearCart, decrement, increment, removeFromCart } from "../redux/cart/cartAction";
 
 const ShoppingCart = () => {
     const { cart } = useSelector((state => state.shoppingCart));
@@ -32,7 +33,43 @@ const ShoppingCart = () => {
         });
     }
 
+    const handleRemoveFromCart = (productId) => {
+        dispatch(removeFromCart(productId))
+        Swal.fire({
+            title: "Cart Updated",
+            icon: "success",
+            showConfirmButton: false,
+            timerProgressBar: true,
+            timer: 3000,
+            toast: true,
+            position: 'top',
+        });
+    }
+
+    const handleClearCart = () => {
+        dispatch(clearCart())
+        Swal.fire({
+            title: "Cart Empty",
+            icon: "warning",
+            showConfirmButton: false,
+            timerProgressBar: true,
+            timer: 3000,
+            toast: true,
+            position: 'top',
+        });
+    }
+
     return (
+        <>
+        {cart.length === 0 ? (
+                <div class="col-md-12 text-center">
+                    <div>
+                        <i class="bi bi-basket-fill" style={{ fontSize: '100px' }}></i>
+                    </div>
+                    <h3 class="text-bold">Cart is empty</h3>
+                    <Link class="btn btn-outline-dark mt-3" to="/products">Products</Link>
+                </div >
+            ) : (
         <div className="container">
             <div className="row mt-5">
                 <div className="col-lg-12 pl-3 pt-3">
@@ -76,7 +113,7 @@ const ShoppingCart = () => {
                                     </td>
                                     <td className="align-middle">{product.price * product.qty}</td>
                                     <td className="align-middle" style={{ width: '10%' }}>
-                                        <button className="btn btn-danger btn-sm">delete</button>
+                                        <button onClick={() => handleRemoveFromCart(product.id)} className="btn btn-danger btn-sm">delete</button>
                                     </td>
                                 </tr>
                             ))}
@@ -84,7 +121,7 @@ const ShoppingCart = () => {
                         <tfoot>
                             <tr>
                                 <td>
-                                    <a href="/" className="btn btn-dark">Clear Cart</a>
+                                <button onClick={() => handleClearCart()} className="btn btn-dark">Clear Cart</button>
                                 </td>
                                 <td colSpan="1" className="hidden-xs"></td>
                                 <td colSpan="1" className="hidden-xs"></td>
@@ -101,7 +138,8 @@ const ShoppingCart = () => {
                     </table>
                 </div>
             </div>
-        </div>
+        </div>)}
+        </>
     )
 }
 
