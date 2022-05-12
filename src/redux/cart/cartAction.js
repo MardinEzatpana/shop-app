@@ -4,3 +4,17 @@ export const addToCart = (product) => {
         payload: product
     }
 }
+
+export const increment = (productId) => {
+    return {
+        type: 'INCREMENT',
+        payload: productId
+    }
+}
+
+export const decrement = (productId) => {
+    return {
+        type: 'DECREMENT',
+        payload: productId
+    }
+}

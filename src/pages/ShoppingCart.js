@@ -1,7 +1,36 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import Swal from "sweetalert2";
+import { decrement, increment } from "../redux/cart/cartAction";
 
 const ShoppingCart = () => {
     const { cart } = useSelector((state => state.shoppingCart));
+    const dispatch = useDispatch();
+
+    const handleIncrement = (productId) => {
+        dispatch(increment(productId))
+        Swal.fire({
+            title: "Cart Updated",
+            icon: "success",
+            showConfirmButton: false,
+            timerProgressBar: true,
+            timer: 3000,
+            toast: true,
+            position: 'top',
+        });
+    }
+
+    const handleDecrement = (productId) => {
+        dispatch(decrement(productId))
+        Swal.fire({
+            title: "Cart Updated",
+            icon: "success",
+            showConfirmButton: false,
+            timerProgressBar: true,
+            timer: 3000,
+            toast: true,
+            position: 'top',
+        });
+    }
 
     return (
         <div className="container">
@@ -19,7 +48,7 @@ const ShoppingCart = () => {
                         </thead>
                         <tbody>
                             {cart && cart.map(product => (
-                                <tr>
+                                <tr key={product.id}>
                                     <td className="align-middle">
                                         <div className="row">
                                             <div className="col-lg-2">
@@ -37,11 +66,11 @@ const ShoppingCart = () => {
                                     </td>
                                     <td className="align-middle ">{product.price}</td>
                                     <td className="align-middle">
-                                        <button className="btn btn-sm btn-dark me-2">
+                                        <button onClick={() => handleIncrement(product.id)} className="btn btn-sm btn-dark me-2">
                                             +
                                         </button>
                                         <span>{product.qty}</span>
-                                        <button className="btn btn-sm btn-dark ms-2">
+                                        <button onClick={() => handleDecrement(product.id)} className="btn btn-sm btn-dark ms-2">
                                             -
                                         </button>
                                     </td>
@@ -57,8 +86,8 @@ const ShoppingCart = () => {
                                 <td>
                                     <a href="/" className="btn btn-dark">Clear Cart</a>
                                 </td>
-                                <td colspan="1" className="hidden-xs"></td>
-                                <td colspan="1" className="hidden-xs"></td>
+                                <td colSpan="1" className="hidden-xs"></td>
+                                <td colSpan="1" className="hidden-xs"></td>
                                 <td className="hidden-xs text-center" style={{ width: '10%' }}>
                                     <strong >Total : { cart.reduce((total, product) => {
                                         return total + product.price * product.qty
