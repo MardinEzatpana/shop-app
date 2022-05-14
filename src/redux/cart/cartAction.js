@@ -19,9 +19,16 @@ export const decrement = (productId) => {
   };
 };
 
-export const removeFromCart = (productId) => {
+export const removeFromCart1 = (productId) => {
   return {
-    type: "REMOVE_FROM_CART",
+    type: "REMOVE_FROM_CART1",
+    payload: productId,
+  };
+};
+
+export const removeFromCart2 = (productId) => {
+  return {
+    type: "REMOVE_FROM_CART2",
     payload: productId,
   };
 };

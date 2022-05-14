@@ -47,7 +47,16 @@ const cartReducer = (state = initialState, action) => {
         ...state,
         cart: state.cart,
       };
-    case "REMOVE_FROM_CART":
+    case "REMOVE_FROM_CART1":
+      state.cart = state.cart.filter((p) => p.id !== action.payload);
+      
+      updateLocalStorage(state.cart);
+
+      return {
+        ...state,
+        cart: state.cart,
+      };
+    case "REMOVE_FROM_CART2":
       state.cart = state.cart.filter((p) => p.id !== action.payload);
       updateLocalStorage(state.cart);
 

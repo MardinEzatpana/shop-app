@@ -5,7 +5,9 @@ import {
   clearCart,
   decrement,
   increment,
-  removeFromCart,
+  removeFromCart1,
+  removeFromCart2
+
 } from "../redux/cart/cartAction";
 
 const ShoppingCart = () => {
@@ -38,8 +40,21 @@ const ShoppingCart = () => {
     });
   };
 
-  const handleRemoveFromCart = (productId) => {
-    dispatch(removeFromCart(productId));
+  const handleRemoveFromCart1 = (productId) => {
+    dispatch(removeFromCart1(productId));
+    Swal.fire({
+      title: "Cart Updated",
+      icon: "success",
+      showConfirmButton: false,
+      timerProgressBar: true,
+      timer: 3000,
+      toast: true,
+      position: "top",
+    });
+  };
+
+  const handleRemoveFromCart2 = (productId) => {
+    dispatch(removeFromCart2(productId));
     Swal.fire({
       title: "Cart Updated",
       icon: "success",
@@ -119,7 +134,7 @@ const ShoppingCart = () => {
                           </button>
                           <span>{product.qty}</span>
                           <button
-                            onClick={() => handleDecrement(product.id)}
+                            onClick={() => product.qty > 1 ? handleDecrement(product.id): handleRemoveFromCart1(product.id)}
                             className="btn btn-sm btn-dark ms-2"
                           >
                             -
@@ -130,7 +145,7 @@ const ShoppingCart = () => {
                         </td>
                         <td className="align-middle" style={{ width: "10%" }}>
                           <button
-                            onClick={() => handleRemoveFromCart(product.id)}
+                            onClick={() => handleRemoveFromCart2(product.id)}
                             className="btn btn-danger btn-sm"
                           >
                             delete
@@ -152,11 +167,12 @@ const ShoppingCart = () => {
                     <td colSpan="1" className="hidden-xs"></td>
                     <td colSpan="1" className="hidden-xs"></td>
                     <td
-                      className="hidden-xs text-center"
+                      className="hidden-xs text-center "
                       style={{ width: "10%" }}
+                      
                     >
-                      <strong>
-                        Total :{" "}
+                      <strong >
+                        Total :{""}
                         {cart.reduce((total, product) => {
                           return total + product.price * product.qty;
                         }, 0)}
