@@ -28,13 +28,13 @@ const ProductContainer = () => {
   return (
     <>
       <div className="container">
-        <div className="row mt-2  p-5 g-3">
+        <div className="row mt-2  p-5 g-3 ">
           {loading && <h3>Loading ....</h3>}
           {error && <h3>{error}</h3>}
           {products &&
             products.map((product) => (
               <div className="col-md-3 " key={product.id}>
-                <div className="card">
+                <div className="card border-3 shadow-lg h-100">
                   <img
                     className="card-img-top"
                     style={{ height: 300 }}
@@ -42,8 +42,13 @@ const ProductContainer = () => {
                     alt="..."
                   />
                   <div className="card-body">
-                    <h6 className="card-title">{product.title}</h6>
-                    <p className="card-text">{product.category}</p>
+                    <h6 className="card-title">
+                    {product.title.length < 15
+                          ? product.title
+                          : `${product.title.slice(0, 15)} ...`}</h6>
+                    <p className="card-text"> {product.description.length < 40
+                          ? product.description
+                          : `${product.description.slice(0, 40)} ...`}</p>
                   </div>
                   <div className="card-footer d-flex justify-content-between">
                     <button

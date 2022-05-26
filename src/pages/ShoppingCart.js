@@ -65,6 +65,7 @@ const ShoppingCart = () => {
       position: "top",
     });
   };
+  
 
   const handleClearCart = () => {
     dispatch(clearCart());
@@ -87,8 +88,8 @@ const ShoppingCart = () => {
             <i className="bi bi-basket-fill" style={{ fontSize: "100px" }}></i>
           </div>
           <h3 className="text-bold">Cart is empty</h3>
-          <Link className="btn btn-outline-dark mt-3" to="/products">
-            Products
+          <Link className="btn btn-outline-dark mt-3 " to="/products">
+            GO TO Products
           </Link>
         </div>
       ) : (
@@ -124,7 +125,8 @@ const ShoppingCart = () => {
                             </div>
                           </div>
                         </td>
-                        <td className="align-middle ">{product.price}</td>
+                        <td className="align-middle ">{product.price}
+                          </td>
                         <td className="align-middle">
                           <button
                             onClick={() => handleIncrement(product.id)}
@@ -174,7 +176,7 @@ const ShoppingCart = () => {
                       <strong >
                         Total :{""}
                         {cart.reduce((total, product) => {
-                          return total + product.price * product.qty;
+                          return (total + product.price * product.qty);
                         }, 0)}
                       </strong>
                     </td>
