@@ -1,6 +1,13 @@
-export const addToCart = (product) => {
+export const addToCart1 = (product) => {
   return {
-    type: "ADD_TO_CART",
+    type: "ADD_TO_CART1",
+    payload: product,
+  };
+};
+
+export const addToCart2 = (product) => {
+  return {
+    type: "ADD_TO_CART2",
     payload: product,
   };
 };

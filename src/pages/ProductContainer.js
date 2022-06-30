@@ -1,19 +1,20 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
-import { addToCart } from "../redux/cart/cartAction";
+import { addToCart1 } from "../redux/cart/cartAction";
 import { fetchProducts } from "../redux/products/productAction";
 
 const ProductContainer = () => {
-  const { products, loading, error } = useSelector((state) => state.product);
+  const { products, loading, error } = useSelector((state) => state.products);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchProducts());
   }, [dispatch]);
 
-  const handleAddToCart = (product) => {
-    dispatch(addToCart(product));
+  const handleAddToCart1 = (product) => {
+    dispatch(addToCart1(product));
     Swal.fire({
       title: "Product added",
       icon: "success",
@@ -46,19 +47,23 @@ const ProductContainer = () => {
                     {product.title.length < 15
                           ? product.title
                           : `${product.title.slice(0, 15)} ...`}</h6>
-                    <p className="card-text"> {product.description.length < 40
-                          ? product.description
-                          : `${product.description.slice(0, 40)} ...`}</p>
+                   <span>{product.price}</span>
                   </div>
                   <div className="card-footer d-flex justify-content-between">
                     <button
-                      onClick={() => handleAddToCart(product)}
+                      onClick={() => handleAddToCart1(product)}
                       className="btn btn-sm btn-outline-success"
                     >
                       Add to cart
                     </button>
-                    <span>{product.price}</span>
+
+                    <Link to={`/products/${product.id}`}>
+                      <button className="btn btn-sm btn-outline-danger">
+                        Details
+                      </button>
+                    </Link>
                   </div>
+                  
                 </div>
               </div>
             ))}
